@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Code Quiz</title>
+</head>
+<body>
+    <header>
+        <h1 class="h1-title" style="text-align: center;">Code Quiz</h1>
+    </header>
+
+    <section class="question-box">
+
+        <!-- timer section -->
+        <div class="timer-wrapper">
+            <h2 id="timer"></h2>
+            <div class="quiz-count">
+                <!-- <span><p>3</p>out of<p>Questions</p></span> -->
+            </div>
+            <button class="start">Start Quiz</button>
+        </div>
+
+        <!-- content of the quiz -->
+        <div class="quiz-wrapper">
+            <div class="quizContent">
+                <div class="textQuestions">
+                    <!-- questions from javascript goes here -->
+                    <!-- <span>How do you create a function?</span> -->
+                </div>
+
+                <div class="textChoices">
+                    <!-- choices from javascript goes here -->
+                    <!-- <div class="choices">
+                        <span>a: function myFunction()</span>
+                    </div>
+                    <div class="choices">
+                        <span>b: function(myFunction)</span>
+                    </div>
+                    <div class="choices">
+                        <span>c: function: myFunction()</span>
+                    </div>
+                    <div class="choices">
+                        <span>d: function = myFunction()</span>
+                    </div> -->
+                </div>
+
+                <button class="submit">Submit</button>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="congrats-text">Congrats!! <br> You have completed the quiz!</div>
+            <button class="reset">Try again?</button>
+
+            <form class="scoreboard">
+                <label for="name">Type your initials to save your score.</label> <br> <br>
+                <input type="text" id="initials" name="initials">
+                <input class="enter" type="submit" value="Enter">
+            </form>
+        </div>
+        
+    </section>
+
+
+    <script src="./script.js"></script>
+</body>
+</html>
