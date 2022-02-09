@@ -8,7 +8,8 @@ var textChoices = document.querySelector('.textChoices');
 var timerEl = document.querySelector("#timer");
 var timerContent = document.querySelector(".timer-wrapper");
 var resultEl = document.querySelector(".result");
-var resetEl = document.querySelector(".reset");
+var resetBtn = document.querySelector(".reset");
+var scoreEl = document.querySelector(".score-text");
 
 var secondsLeft = 60;
 var userScore = 0;
@@ -90,7 +91,7 @@ var arrayQuestions = [
 //     }, 1000);
 // }
 
-
+// sets timer function
 startBtn.addEventListener("click", function setTimer() {
     quizEl.classList.add("showQuiz");
     setQuestions(0);
@@ -102,7 +103,7 @@ startBtn.addEventListener("click", function setTimer() {
 
             if (secondsLeft <= 0) {
                 clearInterval(quizInterval);
-                showResults();
+                // showResults();
                 timerContent.textContent = "Time's up!";
             }
         }, 1000);
@@ -112,6 +113,7 @@ startBtn.addEventListener("click", function setTimer() {
     
 });
 
+// sets the questions to html
 function setQuestions(index) {
     // sets the questions and choices\
     var questionDiv = '<span>' + arrayQuestions[index].question + '<span>';
@@ -129,12 +131,14 @@ function setQuestions(index) {
     }
 }
 
+//  if choice gets selected
 function selectedChoice(correct) {
     var userChoice = correct.textContent;
     var correctChoice = arrayQuestions[questionContent].correct;
     var choicesAll = textChoices.children.length;
 
     if (userChoice == correctChoice) {
+        userScore += 1;
         correct.classList.add("correct");
         console.log("You got it right!");
     } else {
@@ -170,15 +174,24 @@ submitBtn.onclick = ()=> {
 
 };
 
-// function questionCount(index) {
-//     var quizCount = document.querySelector(".quiz-count");
-//     var totalCount = '<span><p>' + index + '</p>out of<p>' + arrayQuestions.length + '</p><p>Questions</p></span>';
-//     quizCount.innerHTML = totalCount;
-
-// }
-
-// // sets the submit button
+// sets the results
 function showResults() {
-    resultEl.classList.add("showResultBox");
     quizEl.classList.remove("showQuiz");
+    resultEl.classList.add("showResult");
+    quizEl.style.display = "none";
+    timerContent.style.display = "none";
+    if (userScore >= 4) {
+        var scoreDiv = '<div>Yay! You are a master coder!</div><div class="score-text">Score = <span>' + userScore + '</span> /' + arrayQuestions.length + '</div>';
+        scoreEl.innerHTML = scoreDiv;
+        
+    } else if (userScore <= 3) {
+        var scoreDiv =  '<div>Uh-oh! You need to study more.</div><div class="score-text">Score = <span>' + userScore + '</span> /' + arrayQuestions.length + '</div>';
+        scoreEl.innerHTML = scoreDiv;
+    }
+}
+
+// resets the quiz
+resetBtn.onclick = ()=> {
+    timerContent.classList.add("showQuiz");
+    setTimer();
 }
