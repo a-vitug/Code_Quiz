@@ -54,16 +54,25 @@
         <div class="result">
             <div class="congrats-wrapper">
                 <div class="congrats-text">Congrats!! <br> You have completed the quiz!</div>
-                <button class="reset">Try again?</button>
+                <button onclick="history.back()">Try Again?</button>
             </div>
 
             <form class="scoreboard">
                 <div class="score-text">
                     <!-- <div>Score = <span> 5</span> /10</div> -->
                 </div>
-                <label for="name">Type your initials below to save your score.</label> <br> <br>
-                <input type="text" id="initials" name="initials">
-                <input class="enter" type="submit" value="Enter">
+
+                <div class="divForm">
+                    <label for="initials">Type your initials below to save your score.</label> <br> <br>
+                    <input type="text" id="initials" name="initials">
+                    <input class="enter" type="submit" value="Enter">
+                </div>
+                
+                <div class="display-score">
+                    <p>Name: <span id="nameEl"></span></p>
+                    <p>Scores: <span id="myScores"></span></p>
+                </div>
+                    
             </form>
         </div>
         

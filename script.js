@@ -1,19 +1,32 @@
-var startBtn = document.querySelector(".start");
-var quizEl = document.querySelector(".quizContent");
-var questionsEl = document.querySelector(".textQuestions");
-var submitBtn = document.querySelector(".submit");
-var choicesEl = document.querySelector(".textChoices");
-var textQuestions = document.querySelector('.textQuestions');
-var textChoices = document.querySelector('.textChoices');
+//  timer box
 var timerEl = document.querySelector("#timer");
 var timerContent = document.querySelector(".timer-wrapper");
-var resultEl = document.querySelector(".result");
+
+// questions box
+var quizEl = document.querySelector(".quizContent");
+var questionsEl = document.querySelector(".textQuestions");
+var textQuestions = document.querySelector('.textQuestions');
+var textChoices = document.querySelector('.textChoices');
+
+// buttons
+var startBtn = document.querySelector(".start");
+var submitBtn = document.querySelector(".submit");
 var resetBtn = document.querySelector(".reset");
+var saveScoreBtn = document.querySelector(".enter");
+
+// scores box
+var resultEl = document.querySelector(".result");
 var scoreEl = document.querySelector(".score-text");
+var initialEl = document.querySelector("#initials");
+var nameEl = document.querySelector("#nameEl");
+var myScores = document.querySelector("#myScores");
+var divForm = document.querySelector(".divForm");
+var displayScore = document.querySelector(".display-score");
+
 
 var secondsLeft = 60;
 var userScore = 0;
-var minus = 5;
+var minus = 15;
 var quizInterval = 0;
 var questionContent = 0;
 var userChoice;
@@ -33,11 +46,11 @@ var arrayQuestions = [
     {   question: "How do you call a function?",
         choices: [
             "function = call", 
-            "function()", 
+            "call()", 
             "function call()",
-            "call = function()"
+            "call = function"
             ],
-        correct: "function()",
+        correct: "call()",
     },
     {   question: "What is the correct syntax to refer an external javascript?",
         choices: [
@@ -76,21 +89,6 @@ var arrayQuestions = [
     }
 ];
 
-
-// sets timer function
-// function setTimer() {
-//     var timeInterval = setInterval(function() {
-//         secondsLeft--;
-//         timeEl.textContent = (secondsLeft + " seconds left...");
-//         if (secondsLeft === 0) {
-//             clearInterval (timeInterval);
-//             timeEl.textContent = ("");
-//             // ----> proceed to next question;
-//         }
-
-//     }, 1000);
-// }
-
 // sets timer function
 startBtn.addEventListener("click", function setTimer() {
     quizEl.classList.add("showQuiz");
@@ -105,11 +103,10 @@ startBtn.addEventListener("click", function setTimer() {
                 clearInterval(quizInterval);
                 // showResults();
                 timerContent.textContent = "Time's up!";
+                showResults();
             }
         }, 1000);
-    // } if (userChoice !== correctChoice) {
-    //     secondsLeft = secondsLeft - minus;
-    };
+    }
     
 });
 
@@ -143,6 +140,7 @@ function selectedChoice(correct) {
         console.log("You got it right!");
     } else {
         correct.classList.add("wrong");
+        secondsLeft = secondsLeft - minus;       
         console.log("Uh-oh! Try again...");
 
         for (var i = 0; i < choicesAll; i++) {
@@ -156,13 +154,13 @@ function selectedChoice(correct) {
     for (var i = 0; i < choicesAll; i++) {
         textChoices.children[i].classList.add("dismiss");
     } 
-
     submitBtn.style.display = "inline-block";
 }
 
-
 // next question
-submitBtn.onclick = ()=> {
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
     if (questionContent < arrayQuestions.length - 1) {
         questionContent++;
         setQuestions(questionContent);
@@ -171,8 +169,7 @@ submitBtn.onclick = ()=> {
         console.log("Questions completed");
         showResults();
     } 
-
-};
+});
 
 // sets the results
 function showResults() {
@@ -180,6 +177,8 @@ function showResults() {
     resultEl.classList.add("showResult");
     quizEl.style.display = "none";
     timerContent.style.display = "none";
+    displayScore.style.display = "none";
+
     if (userScore >= 4) {
         var scoreDiv = '<div>Yay! You are a master coder!</div><div class="score-text">Score = <span>' + userScore + '</span> /' + arrayQuestions.length + '</div>';
         scoreEl.innerHTML = scoreDiv;
@@ -190,8 +189,23 @@ function showResults() {
     }
 }
 
-// resets the quiz
-resetBtn.onclick = ()=> {
-    timerContent.classList.add("showQuiz");
-    setTimer();
+// saves the user's highscore
+saveScoreBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    var userName = initialEl.value;
+
+    displayScore.style.display = "inline-block";
+    divForm.style.display = "none";
+
+    localStorage.setItem("name", userName);
+    localStorage.setItem("scores", userScore);
+
+    yourScore();
+});
+
+//  displays the user scores
+function yourScore() {
+    nameEl.textContent = localStorage.getItem("name");
+    myScores.textContent = localStorage.getItem("scores");
 }

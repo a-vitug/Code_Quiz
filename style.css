@@ -232,8 +232,13 @@ label {
     border: 1px solid var(--brown);
     border-radius: 5px;
     height: 25px;
-    width: 65px;
+    width: 80px;
     text-align: center;
+}
+
+.display-score {
+    font-weight: 900;
+    color: var(--pink);
 }
 
 .enter {
